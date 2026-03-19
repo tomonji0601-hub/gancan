@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>含ちゃん</title>
+  <meta name="theme-color" content="#225c63" />
+  <meta name="description" content="含水比計算と試料調整を行える土質試験サポートアプリ" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="含ちゃん" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <main class="app-shell">
+    <header class="hero-card">
+      <div class="hero-badge">Soil Lab Helper</div>
+      <div class="hero-main">
+        <div>
+          <h1>含ちゃん</h1>
+          <p>含水比計算と試料調整を、スマホでさっと使えるようにまとめたアプリです。</p>
+        </div>
+        <div class="hero-visual-wrap">
+          <img src="images/app-photo.png" alt="皿と水滴のアイコン" class="hero-visual" />
+        </div>
+        <div class="hero-mini-cards" aria-label="特徴">
+          <div class="mini-card">
+            <span class="mini-label">履歴</span>
+            <strong>自動保存</strong>
+          </div>
+          <div class="mini-card">
+            <span class="mini-label">出力</span>
+            <strong>CSV対応</strong>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="mode-tabs" aria-label="モード切替">
+      <button id="tab-water" class="tab-button active" type="button">
+        <span class="tab-title">含水比計算</span>
+        <span class="tab-sub">w(%) を算出</span>
+      </button>
+      <button id="tab-adjust" class="tab-button" type="button">
+        <span class="tab-title">試料調整</span>
+        <span class="tab-sub">加水量 mw を算出</span>
+      </button>
+    </nav>
+
+    <section id="mode-water" class="mode-panel active">
+      <div class="panel-grid">
+        <div class="card form-card">
+          <div class="card-head">
+            <div>
+              <div class="eyebrow">Mode 1</div>
+              <h2>含水比計算モード</h2>
+            </div>
+            <div class="formula-chip">w(%) = 100 × (ma - mb) / (mb - mc)</div>
+          </div>
+
+          <div class="grid">
+            <label class="field field-wide">
+              <span>試料名</span>
+              <input id="water-sample" type="text" placeholder="例：KIKAI-01" />
+            </label>
+            <label class="field">
+              <span>ma</span>
+              <small>湿潤試料＋皿 (g)</small>
+              <input id="ma" type="number" inputmode="decimal" step="any" placeholder="0.00" />
+            </label>
+            <label class="field">
+              <span>mb</span>
+              <small>乾燥試料＋皿 (g)</small>
+              <input id="mb" type="number" inputmode="decimal" step="any" placeholder="0.00" />
+            </label>
+            <label class="field field-wide">
+              <span>mc</span>
+              <small>皿 (g)</small>
+              <input id="mc" type="number" inputmode="decimal" step="any" placeholder="0.00" />
+            </label>
+          </div>
+
+          <div class="result-box">
+            <div>
+              <span>計算結果</span>
+              <strong id="water-result">—</strong>
+            </div>
+            <div class="result-unit">%</div>
+          </div>
+
+          <div class="button-row">
+            <button id="save-water" type="button">保存</button>
+            <button id="export-water" type="button" class="secondary">CSV出力</button>
+            <button id="clear-water" type="button" class="danger">履歴削除</button>
+          </div>
+        </div>
+
+        <div class="card history-card">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">History</div>
+              <h3>保存履歴</h3>
+            </div>
+            <small>日時は自動取得</small>
+          </div>
+          <div id="water-history" class="history-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mode-adjust" class="mode-panel">
+      <div class="panel-grid">
+        <div class="card form-card">
+          <div class="card-head">
+            <div>
+              <div class="eyebrow">Mode 2</div>
+              <h2>試料調整モード</h2>
+            </div>
+            <div class="formula-chip">mw = mi / (1 + w1/100) × (1 + w/100) - mi</div>
+          </div>
+          <p class="note">※ 1 mL = 1 g として扱います。</p>
+
+          <div class="grid">
+            <label class="field field-wide">
+              <span>試料名</span>
+              <input id="adjust-sample" type="text" placeholder="例：KIKAI-02" />
+            </label>
+            <label class="field">
+              <span>w</span>
+              <small>調整後の含水比 (%)</small>
+              <input id="target-w" type="number" inputmode="decimal" step="any" placeholder="0.00" />
+            </label>
+            <label class="field">
+              <span>mi</span>
+              <small>湿潤試料の質量 (g)</small>
+              <input id="mi" type="number" inputmode="decimal" step="any" placeholder="0.00" />
+            </label>
+            <label class="field field-wide">
+              <span>w1</span>
+              <small>湿潤試料の含水比 (%)</small>
+              <input id="w1" type="number" inputmode="decimal" step="any" placeholder="0.00" />
+            </label>
+          </div>
+
+          <div class="result-box">
+            <div>
+              <span>加える水の質量</span>
+              <strong id="adjust-result">—</strong>
+            </div>
+            <div class="result-unit">g</div>
+          </div>
+
+          <div class="button-row">
+            <button id="save-adjust" type="button">保存</button>
+            <button id="export-adjust" type="button" class="secondary">CSV出力</button>
+            <button id="clear-adjust" type="button" class="danger">履歴削除</button>
+          </div>
+        </div>
+
+        <div class="card history-card">
+          <div class="section-header">
+            <div>
+              <div class="eyebrow">History</div>
+              <h3>保存履歴</h3>
+            </div>
+            <small>日時は自動取得</small>
+          </div>
+          <div id="adjust-history" class="history-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
