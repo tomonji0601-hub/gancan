@@ -570,3 +570,40 @@ button:active {
     max-width: 220px;
   }
 }
+body {
+  margin: 0;
+}
+
+.app-header {
+  padding: 16px;
+}
+
+.tab-button {
+  border-radius: 12px;
+}
+
+/* ここから下に追加 */
+.app-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.app-icon-inline {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 4px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
+  flex-shrink: 0;
+}
+
+.app-title-text h1 {
+  margin: 0;
+}
+
+.app-title-text .lead {
+  margin-top: 8px;
+}
