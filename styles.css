@@ -607,3 +607,38 @@ body {
 .app-title-text .lead {
   margin-top: 8px;
 }
+.app-header {
+  padding: 14px 16px 10px;
+}
+
+.app-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.app-icon-inline {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 4px;
+  border: 1px solid #e8eef1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+
+.app-title-text h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #17343b;
+}
+
+.lead {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #70848c;
+}
